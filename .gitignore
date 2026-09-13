@@ -1,0 +1,60 @@
+﻿# =========================
+# AfriSync Git Ignore Rules
+# =========================
+
+# Python environment
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Local databases - DO NOT PUSH
+server.db
+afrisync_device_a.db
+afrisync_device_b.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Upload folders - DO NOT PUSH
+server_uploads/
+uploads/
+uploads_device_a/
+uploads_device_b/
+backups/
+
+# Secret/config files - DO NOT PUSH
+.env
+*.env
+sync_secret.key
+*.key
+
+afrisync_email_config.ps1
+afrisync_google_config.ps1
+afrisync_postgres_config.ps1
+afrisync_production_config.ps1
+
+# Logs
+*.log
+logs/
+
+# Build outputs
+dist/
+build/
+*.exe
+*.spec
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

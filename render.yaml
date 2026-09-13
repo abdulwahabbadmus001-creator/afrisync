@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: afrisync-remote-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements_production.txt
+    startCommand: python start_afrisync.py
+    envVars:
+      - key: AFRISYNC_SERVICE
+        value: remote
+      - key: AFRISYNC_ENV
+        value: production
+      - key: AFRISYNC_DATABASE_BACKEND
+        value: postgres
+      - key: AFRISYNC_DATABASE_URL
+        sync: false
+      - key: AFRISYNC_GOOGLE_CLIENT_ID
+        sync: false
+      - key: AFRISYNC_SMTP_USERNAME
+        sync: false
+      - key: AFRISYNC_SMTP_PASSWORD
+        sync: false
+      - key: AFRISYNC_SMTP_FROM_EMAIL
+        sync: false
+      - key: AFRISYNC_EMAIL_REQUIRE_SMTP
+        value: "1"
+      - key: AFRISYNC_EMAIL_ALLOW_DEVELOPMENT_CODE
+        value: "0"
+
+  - type: web
+    name: afrisync-admin-dashboard
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements_production.txt
+    startCommand: python start_afrisync.py
+    envVars:
+      - key: AFRISYNC_SERVICE
+        value: admin
+      - key: AFRISYNC_ENV
+        value: production
+      - key: AFRISYNC_DATABASE_BACKEND
+        value: postgres
+      - key: AFRISYNC_DATABASE_URL
+        sync: false
+      - key: AFRISYNC_ADMIN_USERNAME
+        value: admin
+      - key: AFRISYNC_ADMIN_PASSWORD
+        sync: false

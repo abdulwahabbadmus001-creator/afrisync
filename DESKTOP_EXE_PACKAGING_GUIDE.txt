@@ -1,0 +1,153 @@
+AFRISYNC DESKTOP EXE PACKAGING V1
+==================================
+
+WHAT THIS FEATURE DOES
+----------------------
+This feature gives AfriSync a Windows desktop launcher.
+
+Instead of opening many terminals manually, the launcher can start:
+
+1. Remote Server      http://127.0.0.1:8000
+2. Device A           http://127.0.0.1:8001
+3. Device B           http://127.0.0.1:8002
+4. Admin Dashboard    http://127.0.0.1:8010/admin
+
+It also includes:
+- Start All button
+- Stop All button
+- Individual Start/Stop buttons
+- Open Device A button
+- Open Device B button
+- Open Admin button
+- Health Check button
+- Service logs panel
+- Desktop shortcut creator
+- EXE build script
+
+FILES TO ADD
+------------
+Put these files inside your AfriSync project folder:
+
+C:\Users\user\OneDrive\Desktop\afrisync\desktop_launcher.py
+C:\Users\user\OneDrive\Desktop\afrisync\run_desktop_launcher.ps1
+C:\Users\user\OneDrive\Desktop\afrisync\build_desktop_exe.ps1
+C:\Users\user\OneDrive\Desktop\afrisync\create_desktop_shortcut.ps1
+C:\Users\user\OneDrive\Desktop\afrisync\requirements_desktop.txt
+C:\Users\user\OneDrive\Desktop\afrisync\check_launcher_requirements.py
+C:\Users\user\OneDrive\Desktop\afrisync\run_launcher_check.ps1
+
+STEP 1: CHECK REQUIREMENTS
+--------------------------
+Run:
+
+cd "C:\Users\user\OneDrive\Desktop\afrisync"; .\run_launcher_check.ps1
+
+Expected result:
+
+PASS  server.py
+PASS  local_app.py
+PASS  admin_app.py
+PASS  templates/dashboard.html
+PASS  desktop_launcher.py
+PASS  uvicorn
+PASS  fastapi
+RESULT: Launcher requirements look good.
+
+If a port says OPEN, it means one of your AfriSync services is already running.
+That is not automatically bad.
+
+STEP 2: TEST THE LAUNCHER BEFORE BUILDING EXE
+---------------------------------------------
+Run:
+
+cd "C:\Users\user\OneDrive\Desktop\afrisync"; .\run_desktop_launcher.ps1
+
+Expected result:
+
+A desktop window opens with buttons:
+- Start All
+- Stop All
+- Open Device A
+- Open Device B
+- Open Admin
+- Health Check
+
+Click Start All.
+
+Expected result:
+
+Remote Server starts on port 8000.
+Device A starts on port 8001.
+Device B starts on port 8002.
+Admin Dashboard starts on port 8010.
+The launcher opens Device A in your browser.
+
+STEP 3: BUILD THE EXE
+---------------------
+Run:
+
+cd "C:\Users\user\OneDrive\Desktop\afrisync"; .\build_desktop_exe.ps1
+
+Expected result:
+
+SUCCESS: AfriSyncLauncher.exe has been created in your AfriSync folder.
+
+The EXE will be here:
+
+C:\Users\user\OneDrive\Desktop\afrisync\AfriSyncLauncher.exe
+
+STEP 4: CREATE DESKTOP SHORTCUT
+-------------------------------
+Run:
+
+cd "C:\Users\user\OneDrive\Desktop\afrisync"; .\create_desktop_shortcut.ps1
+
+Expected result:
+
+SUCCESS: Desktop shortcut created: C:\Users\user\Desktop\AfriSync Launcher.lnk
+
+STEP 5: DAILY USE
+-----------------
+After building the EXE, you can simply double-click:
+
+AfriSync Launcher
+
+Then click:
+
+Start All
+
+Then open Device A or Device B.
+
+IMPORTANT NOTES
+---------------
+1. This does not replace your current web app.
+2. This does not change your database.
+3. This does not remove your existing run scripts.
+4. This only makes AfriSync easier to start.
+5. The actual app still runs in the browser.
+6. The EXE is a launcher/control panel, not a rewritten desktop app.
+
+TROUBLESHOOTING
+---------------
+
+If the launcher says Python not found:
+- Run it using run_desktop_launcher.ps1 first.
+- Make sure Python is installed.
+- Make sure your AfriSync packages are installed.
+
+If a port is already open:
+- Another AfriSync terminal may already be running.
+- Close old terminals or click Stop All in the launcher.
+
+If Google login does not show:
+- Make sure afrisync_google_config.ps1 exists.
+- Make sure AFRISYNC_GOOGLE_CLIENT_ID is set inside it.
+
+If email verification does not send:
+- Make sure afrisync_email_config.ps1 exists.
+- Make sure Gmail App Password is correct.
+
+If the EXE opens but services fail:
+- Keep AfriSyncLauncher.exe inside the main AfriSync project folder.
+- Do not move it alone to another folder.
+- Use create_desktop_shortcut.ps1 instead of moving the EXE.
