@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "AfriSync",
+    "slug": "afrisync-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/afrisync_logo.png",
+    "android": {
+      "package": "com.afrisync.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/afrisync_logo.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.afrisync.mobile"
+    },
+    "web": {
+      "favicon": "./assets/afrisync_logo.png"
+    },
+    "splash": {
+      "image": "./assets/afrisync_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    }
+  }
+}

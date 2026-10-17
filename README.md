@@ -1,342 +1,365 @@
-<p align="center"> <img src="assets/afrisync_connected_africa_logo.png" alt="AfriSync Logo" width="180" /> </p>
+<div align="center">
+  <img src="assets/afrisync_connected_africa_logo.png" alt="AfriSync logo" width="220" />
 
-<h1 align="center">AfriSync</h1>
+# AfriSync
 
-<p align="center"> <strong>Offline-first project synchronization for African developers, teams, and infrastructure builders.</strong> </p>
+### Build together. Stay in sync — even when connectivity does not.
 
-<p align="center"> <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white"></a> <a href="https://fastapi.tiangolo.com/"><img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white"></a> <a href="https://www.sqlite.org/"><img alt="SQLite" src="https://img.shields.io/badge/SQLite-Offline%20Database-003B57?logo=sqlite&logoColor=white"></a> <a href="https://www.postgresql.org/"><img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-Production%20Ready-4169E1?logo=postgresql&logoColor=white"></a> <a href="https://www.docker.com/"><img alt="Docker" src="https://img.shields.io/badge/Docker-Deployment-2496ED?logo=docker&logoColor=white"></a> <img alt="Open Source" src="https://img.shields.io/badge/Open%20Source-African%20Developers-0F766E"> </p>
+An open-source, offline-first synchronization platform built around a practical question: **how can developers and teams keep useful work moving when internet access is intermittent, expensive, or unreliable?**
 
-Why AfriSync Exists
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-Offline%20Storage-003B57?logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Migration%20Ready-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![React Native](https://img.shields.io/badge/React%20Native-Mobile-61DAFB?logo=react&logoColor=111827)](https://reactnative.dev/)
+[![Expo](https://img.shields.io/badge/Expo-Mobile%20Tooling-000020?logo=expo&logoColor=white)](https://expo.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Mobile-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Git](https://img.shields.io/badge/Git-Version%20Control-F05032?logo=git&logoColor=white)](https://git-scm.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-Open%20Source-181717?logo=github&logoColor=white)](https://github.com/)
+[![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
-Across many African environments, software teams, researchers, NGOs, businesses, and public institutions often work under conditions that mainstream tools do not always design for: unstable internet connectivity, expensive data, fragmented infrastructure, limited cloud access, and the need to keep working even when systems go offline.
+</div>
 
-AfriSync is built from that reality.
+## Why AfriSync exists
 
-It began as a research-driven software experiment asking a simple question:
+AfriSync started as a learning and engineering experiment around a problem that is common across many African digital environments: software is often designed as though continuous connectivity is guaranteed. In practice, developers, small teams, students, field workers, businesses, and communities may work through unstable networks, expensive data, power interruptions, or long periods without reliable access.
 
-What would project collaboration look like if African infrastructure constraints were treated as a design priority, not an afterthought?
+The project therefore began with a simple principle:
 
-AfriSync explores that question by building an offline-first synchronization system where work can continue locally, then sync when connectivity returns. It is both a technical product and a research project around digital resilience, African developer infrastructure, local-first software, and inclusive technology design.
+> **Local work should remain useful when the network disappears, and synchronization should happen safely when connectivity returns.**
 
-The Problem
+AfriSync is not an attempt to claim that Africa has no internet or no cloud infrastructure. It is a developer-oriented response to uneven connectivity conditions and to the broader need for resilient software that treats offline operation as a first-class state rather than an exceptional failure.
 
-Many digital products assume that users always have:
+## Vision
 
-stable internet,
-reliable cloud access,
-uninterrupted electricity,
-low-cost data,
-and centralized infrastructure.
+To make resilient, offline-capable software infrastructure easier to build, understand, and extend — especially for developers working in connectivity-constrained environments across Africa and other parts of the world.
 
-That assumption does not always match the reality of builders across Africa.
+## Mission
 
-When connectivity fails, many tools fail with it. Projects stop. Teams lose visibility. Local work becomes disconnected. Small organizations struggle to coordinate. Developers are forced to build around infrastructure gaps instead of building through them.
+AfriSync aims to:
 
-AfriSync is designed to challenge that pattern.
+- keep application data usable locally when a network is unavailable;
+- synchronize local and remote state when connectivity returns;
+- make sync status, conflicts, failures, retries, and activity understandable to developers;
+- support secure multi-device and team workflows;
+- provide an open-source foundation that other developers can inspect, improve, and adapt;
+- grow from a Python/FastAPI synchronization experiment into a polished mobile developer platform.
 
-The Solution
+## The journey: how the project evolved
 
-AfriSync allows users to create, edit, manage, and synchronize project work across devices using an offline-first model.
+### 1. Local-first Python prototype
 
-The core idea is simple:
+The first AfriSync implementation was a Python application using local SQLite storage. Records could be created locally and marked with synchronization states such as `PENDING`, `SYNCED`, `CONFLICT`, or `ERROR`.
 
-Device A / Local App
-        ↓
-Remote Sync Server
-        ↓
-Device B / Local App
+The first goal was not UI polish. It was to prove the central behavior:
 
-Each device keeps working locally. When the network is available, AfriSync synchronizes projects, notes, attachments, activity logs, team roles, notifications, and changes across devices.
+```text
+create locally → keep working offline → detect connectivity → push changes → mark synchronized
+```
 
-This makes AfriSync useful for environments where connectivity is not guaranteed but productivity must continue.
+This established the local-first data model and the sync queue.
 
-Why the Name “AfriSync”?
+### 2. FastAPI remote synchronization API
 
-AfriSync combines two ideas:
+The project then moved from a local demonstration to a client/server model. A FastAPI remote server became the synchronization target, with Pydantic models and HTTP API calls between local clients and the remote service.
 
-Afri — Africa, African builders, African realities, and African innovation.
-Sync — synchronization, collaboration, continuity, and connected progress.
+This introduced:
 
-The name reflects the mission: to help African developers and teams build tools that stay connected even when infrastructure is unstable.
+- remote project and record APIs;
+- push and pull synchronization;
+- network-aware retry behavior;
+- authenticated synchronization tokens;
+- health checks and server status;
+- explicit server-side persistence.
 
-Logo Meaning
+The key architectural shift was from "write directly to one database" to **"local database first, API synchronization second."**
 
-The AfriSync logo represents the product’s core philosophy.
+### 3. Multi-device simulation
 
-Logo Element	Meaning
-Africa outline	Technology built with African contexts in mind
-Database cylinder	Data, storage, sync records, projects, notes, and attachments
-Code symbol	Developers, software engineering, and open-source contribution
-Circular arrows	Synchronization across devices, teams, and locations
-Network nodes	Collaboration, connectivity, and shared digital infrastructure
-Colour Meaning
-Colour	Meaning
-Deep emerald / green	African growth, resilience, agriculture, infrastructure, and renewal
-Electric blue / cyan	Technology, data flow, cloud systems, APIs, and synchronization
-Amber / orange	Energy, alerts, creativity, urgency, and African sunlight
-Charcoal / slate	Professionalism, developer seriousness, dark mode, and product depth
-White / soft neutral	Clarity, accessibility, readability, and clean user experience
-Current Features
+AfriSync then introduced separate simulated devices with independent SQLite databases. Device A and Device B could both work with local data and exchange changes through the remote FastAPI server.
 
-AfriSync currently includes:
+This stage was important because synchronization only becomes meaningful when multiple independent copies of state can diverge.
 
-Core Offline-First System
-Local-first project creation
-Local SQLite storage
-Remote synchronization server
-Multi-device sync testing
-Background sync support
-Sync status tracking
-Conflict detection and resolution foundation
-Project Management
-Create projects
-View projects
-Edit projects
-Delete projects
-Search and filter projects
-Project progress tracking
-Project details screen
-Notes and Attachments
-Add project notes
-Edit notes
-Delete notes
-Upload project attachments
-Open attachments
-Delete attachments
-Sync notes and attachments across devices
-Team Collaboration
-Invite members by username
-Assign Viewer or Editor role
-Change member role later
-Remove members
-Editor access for project editing and deletion
-Viewer access for read-only collaboration
-Authentication and Account Security
-User registration
-Email-based registration
-4-digit email verification code
-Verified-only login
-Username or email login
-Password reset
-Continue with Google login
-Secure remote sync token
-Local session handling
-Notifications and Activity Tracking
-In-app notifications
-Notification badge
-Notification dropdown behavior
-Activity log
-Sync history
-Offline and sync-failure notifications
-Team invitation and role-change notifications
-Admin Dashboard
-Admin overview
-User management
-Enable or disable users
-Project soft delete and restore
-Transfer project ownership
-Member role management
-Admin audit logs
-CSV export support
-Server health overview
-Deployment and Packaging Preparation
-PostgreSQL-ready backend structure
-SQLite-to-PostgreSQL migration script
-Deployment readiness checker
-Dockerfile
-Render deployment template
-Production environment examples
-Backup script
-Desktop launcher preparation
-Technology Stack
-Tool	Role in AfriSync	Badge
-Python	Core backend logic and sync processing	
+### 4. Notes, attachments, tombstones and versioning
 
-FastAPI	Remote API, local app API, authentication, sync endpoints	
+The synchronization model expanded beyond projects to include notes and file attachments. Deletion synchronization uses tombstone-style state instead of assuming that removing a local row is enough. Version information and conflict handling were added so that incompatible edits can be surfaced instead of silently overwritten.
 
-SQLite	Local-first database for offline device storage	
+### 5. Activity, notifications and sync history
 
-PostgreSQL	Production-ready remote database target	
+The application grew developer-facing observability features:
 
-HTML/CSS/JavaScript	Browser dashboard interface	
-Docker	Container deployment preparation	
+- synchronization history;
+- activity events;
+- notifications;
+- error states;
+- conflict-resolution surfaces;
+- latest synchronization timestamps.
 
-GitHub	Open-source hosting and collaboration	
+The objective is that sync should not be a hidden background mystery. Developers should be able to see what happened.
 
-Expo React Native	Planned mobile app conversion	
+### 6. Team collaboration and permissions
 
-Architecture
-┌──────────────────────────────┐
-│        Browser Dashboard      │
-│  Projects • Notes • Team • UI │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│        Local FastAPI App      │
-│   Device A / Device B API     │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│        Local SQLite DB        │
-│ Offline projects and changes  │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│        Sync Engine            │
-│ Push • Pull • Conflict checks │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│      Remote FastAPI Server    │
-│ Auth • Team • Sync • Admin    │
-└───────────────┬──────────────┘
-                │
-                ▼
-┌──────────────────────────────┐
-│ SQLite now / PostgreSQL later │
-│      Production DB target     │
-└──────────────────────────────┘
-Project Structure
-afrisync/
-│
+AfriSync expanded into collaborative use with team invitations and project roles such as owner, editor, and viewer. Permission checks were introduced so synchronization and project operations can respect collaboration boundaries.
+
+### 7. Authentication and security
+
+The project added account and security workflows including:
+
+- local secure sessions;
+- CSRF protection for browser-facing flows;
+- bearer tokens for synchronization APIs;
+- password reset;
+- email verification;
+- Google authentication support for the web workflow;
+- developer API-key metadata;
+- local secret/config separation through `.gitignore` and environment configuration.
+
+### 8. Admin and developer monitoring interfaces
+
+A separate administration surface was created for system monitoring, user/project visibility, health information, and operational actions. The original browser dashboard was also progressively redesigned to improve project, activity, notification, and sync visibility.
+
+### 9. PostgreSQL and deployment preparation
+
+SQLite remains valuable for local/offline storage. For remote/hosted deployment, the repository also contains PostgreSQL migration preparation and database abstraction work. Deployment assets and experiments include Uvicorn launchers, Docker configuration, environment-based settings, health checks, and backup tooling.
+
+PostgreSQL support should be understood as part of the server deployment path; SQLite remains central to the offline-first client design.
+
+### 10. AfriSync Mobile
+
+The current direction is **AfriSync Mobile**, built with Expo, React Native, and TypeScript. The mobile application acts as a developer monitor and synchronization surface for projects registered through AfriSync tooling.
+
+Current mobile work includes:
+
+- authentication and email verification screens;
+- developer dashboard;
+- connected project monitoring;
+- active-session and synchronization metrics;
+- project details and development events;
+- sync center;
+- notifications;
+- appearance settings;
+- secure local session storage;
+- API connection handling;
+- production API configuration through build-time environment variables;
+- Android APK preparation through EAS Build.
+
+## Architecture
+
+```text
+┌──────────────────────────────────────────────┐
+│              Developer / User               │
+└──────────────────────┬───────────────────────┘
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+┌───────────────────┐      ┌────────────────────┐
+│ AfriSync Mobile   │      │ Local/Web Client   │
+│ Expo + RN + TS    │      │ Python + SQLite    │
+└─────────┬─────────┘      └──────────┬─────────┘
+          │ HTTPS / API               │ sync engine
+          └────────────┬──────────────┘
+                       ▼
+              ┌─────────────────┐
+              │ FastAPI Server  │
+              │ Auth + Sync API │
+              └────────┬────────┘
+                       │
+          ┌────────────┴────────────┐
+          ▼                         ▼
+┌───────────────────┐      ┌────────────────────┐
+│ SQLite            │      │ PostgreSQL path    │
+│ local/offline     │      │ hosted migration   │
+└───────────────────┘      └────────────────────┘
+```
+
+## Synchronization model
+
+At a high level, AfriSync follows this lifecycle:
+
+```text
+1. Write to local storage first
+2. Mark unsynchronized work as pending
+3. Detect whether the remote API is reachable
+4. Push local pending changes
+5. Pull remote changes
+6. Compare versions/state
+7. Apply compatible updates
+8. Surface conflicts instead of silently discarding edits
+9. Record synchronization/activity history
+10. Continue working locally if connectivity disappears again
+```
+
+This approach keeps offline operation useful while preserving a path back to shared remote state.
+
+## Technology stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Core/backend | Python | Sync engine, server logic, scripts and tooling |
+| API | FastAPI | Remote HTTP API and synchronization endpoints |
+| API runtime | Uvicorn | ASGI development/production serving |
+| Validation | Pydantic | Request/response data validation |
+| Offline database | SQLite | Local-first persistence and simulated device storage |
+| Hosted database path | PostgreSQL | Server-side production migration path |
+| Mobile | React Native | Native mobile user interface |
+| Mobile framework | Expo | Android/iOS tooling, development and builds |
+| Mobile language | TypeScript | Typed mobile application code |
+| Secure mobile storage | Expo SecureStore | Device-side session/token storage |
+| Mobile SQLite | expo-sqlite | Offline structured data persistence |
+| Connectivity | NetInfo | Network-state awareness |
+| Mobile files | Expo FileSystem | Attachment/file handling |
+| Browser UI | HTML/CSS/JavaScript | Earlier local/web dashboard surfaces |
+| Version control | Git + GitHub | Open-source development and collaboration |
+| Windows tooling | PowerShell | Local launch, test, migration and deployment scripts |
+| Packaging experiments | PyInstaller/Tkinter | Desktop launcher work |
+| Deployment | Docker + environment configuration | Reproducible server deployment preparation |
+
+## Project structure
+
+The repository is intentionally broader than the mobile client because it records the evolution of AfriSync.
+
+```text
+AfriSync/
+├── server.py                    # remote FastAPI server
+├── local_app.py                 # local application/API
+├── admin_app.py                 # administration interface
 ├── app/
 │   ├── database.py
-│   └── sync_engine.py
-│
-├── templates/
-│   └── dashboard.html
-│
-├── assets/
-│   └── afrisync_connected_africa_logo.png
-│
-├── server.py
-├── local_app.py
-├── admin_app.py
-├── pull_sync.py
+│   ├── project_service.py
+│   └── sync_engine.py           # synchronization logic
+├── templates/                   # browser dashboard UI
+├── assets/                      # AfriSync brand assets
+├── afrisync_db.py               # database abstraction / PostgreSQL path
 ├── background_sync.py
-├── network.py
-│
-├── start_afrisync.py
-├── desktop_launcher.py
-│
-├── postgres_schema.sql
-├── migrate_server_sqlite_to_postgres.py
-├── check_deployment_readiness.py
-│
-├── README.md
-├── SETUP_AND_RUN.md
-├── PROJECT_STATUS.md
-├── MOBILE_APP_CONVERSION_PLAN.md
-└── requirements.txt
-How to Run AfriSync
+├── pull_sync.py
+├── auto_sync.py
+├── migration and check scripts
+└── afrisync-mobile/             # Expo React Native + TypeScript client
+    ├── App.tsx
+    ├── app.json
+    ├── eas.json
+    ├── src/
+    │   ├── components/
+    │   ├── config/
+    │   ├── context/
+    │   ├── screens/
+    │   ├── services/
+    │   ├── storage/
+    │   ├── theme/
+    │   └── utils/
+    └── assets/
+```
 
-The full setup and run instructions are kept in a separate file to keep this README clean:
+## Mobile development vs production API connection
 
-👉 Read: SETUP_AND_RUN.md
+During local development, a physical phone cannot use the PC's `localhost`. The Expo app therefore uses the computer's LAN IPv4 address, for example:
 
-Basic local development requires four services:
+```text
+http://192.168.1.10:8000
+```
 
-Remote Server  → http://127.0.0.1:8000
-Device A       → http://127.0.0.1:8001
-Device B       → http://127.0.0.1:8002
-Admin          → http://127.0.0.1:8010/admin
-Project Status
+This is **development only**.
 
-AfriSync is currently in active development.
+For an APK or production release, AfriSync uses a build-time environment variable:
 
-The current version proves the core concept:
+```bash
+EXPO_PUBLIC_AFRISYNC_API_URL=https://your-production-api.example.com
+```
 
-local-first data entry,
-offline project work,
-sync between devices,
-user authentication,
-collaboration roles,
-notifications,
-admin management,
-and production-readiness preparation.
+Production builds should use HTTPS. The production mobile UI does not require a user to type or save the API URL; it can test the configured endpoint, but the endpoint itself is fixed by the build.
 
-See the simplified development status here:
+## Android build path
 
-👉 Read: PROJECT_STATUS.md
+AfriSync Mobile uses Expo/EAS for Android builds.
 
-Mobile App Roadmap
+```bash
+npm install -g eas-cli
+eas login
+eas build:configure
+eas build --platform android --profile preview
+```
 
-The next major phase is converting AfriSync into a mobile-first Android/iOS app using Expo React Native while keeping the existing FastAPI backend.
+The `preview` profile generates an installable APK for device testing. A later `production` profile can generate an Android App Bundle for store distribution.
 
-Planned mobile direction:
+## Why the AfriSync logo looks the way it does
 
-Android-first testing
-Expo React Native + TypeScript
-SQLite offline storage
-Secure token storage
-mobile sync engine
-project, notes, attachments, team, notifications, and conflict screens
-future iOS support
+The AfriSync identity combines several ideas in one visual system:
 
-See the full plan here:
+- **Africa** represents the project's origin and the connectivity realities that motivated the work.
+- **Database/storage imagery** represents local persistence: data should remain available even before synchronization succeeds.
+- **Sync arrows / connected nodes** represent movement between local and remote state and between devices.
+- **Code/developer symbolism** reflects the project's developer-first nature rather than positioning AfriSync as only an end-user cloud drive.
 
-👉 Read: MOBILE_APP_CONVERSION_PLAN.md
+The logo is therefore not decorative branding added after the engineering work. It visually describes the project's architecture and purpose.
 
-Open-Source Vision
+## Why these colours
 
-AfriSync is open-source because African developer infrastructure should not be built behind closed doors only.
+AfriSync's core palette uses deep green/emerald, technology blue, amber accents, charcoal, and clean neutral backgrounds.
 
-The goal is to create a project that other developers can study, improve, fork, rebuild, and extend for African contexts. In the spirit of collaborative open-source projects such as Linux, AfriSync is being shared early so that builders can contribute to its direction, not merely consume the final product.
+- **Emerald / green** — resilience, growth, continuity, and an African-rooted identity.
+- **Blue** — technology, data, networks, reliability, and synchronization.
+- **Amber** — active work, warnings, attention states, and energy.
+- **Charcoal** — engineering seriousness and developer-tool sophistication.
+- **White / neutral space** — clarity, readability, and a restrained professional interface.
 
-This project welcomes developers, designers, researchers, technical writers, product thinkers, and infrastructure builders who care about resilient technology for Africa.
+The UI deliberately uses colour semantically: healthy/synced states lean green, active/warning states use amber, and core interactive/data states use blue.
 
-Contribution Areas
+## What AfriSync is becoming
 
-AfriSync needs collaboration in these areas:
+AfriSync is moving toward a developer platform where a developer can register a codebase, work normally, and use AfriSync to monitor synchronization state and development activity across devices and environments.
 
-Area	Contribution Needed
-Mobile development	Convert web features into Expo React Native screens
-UI/UX design	Improve interface, typography, accessibility, and product polish
-Backend engineering	Strengthen FastAPI architecture, testing, and security
-Offline-first engineering	Improve sync, conflict resolution, local storage, and retry logic
-DevOps	Improve Docker, deployment, monitoring, and PostgreSQL setup
-Documentation	Improve setup guides, diagrams, tutorials, and developer onboarding
-Research	Connect the project to African infrastructure, policy, and digital resilience problems
-Development Philosophy
+The longer-term direction includes:
 
-AfriSync is guided by five principles:
+- stronger background/offline synchronization on mobile;
+- production HTTPS API deployment;
+- Android-first distribution, followed by iOS;
+- improved conflict visualization and resolution;
+- better attachment synchronization;
+- richer team collaboration;
+- a more complete CLI/developer workflow;
+- production PostgreSQL deployment;
+- observability and sync diagnostics;
+- community contributions and reusable sync components.
 
-Offline is not failure — users should still work when the internet is unstable.
-Africa is not an edge case — African constraints should shape the design from the beginning.
-Local-first matters — data should exist close to the user before depending on the cloud.
-Collaboration should be resilient — teams should continue building across devices and locations.
-Open-source should educate — the code should help new developers learn how real systems are built.
-Research Context
+## Open-source philosophy
 
-AfriSync is part of a broader research and software-building interest in:
+AfriSync is being developed in the spirit of open-source infrastructure: useful tools improve when other developers can inspect them, challenge assumptions, reproduce problems, and contribute better implementations.
 
-African digital infrastructure,
-local-first software,
-AI and software access gaps,
-data sovereignty,
-resilient systems,
-developer tooling for emerging markets,
-and technology that responds to real social and economic constraints.
+The project welcomes developers interested in:
 
-The project is not only about code. It is also about asking what kind of software architecture makes sense when infrastructure is uneven but ambition is not.
+- offline-first systems;
+- distributed synchronization;
+- FastAPI and Python backends;
+- React Native / Expo;
+- SQLite and PostgreSQL;
+- conflict resolution;
+- mobile UX;
+- developer tooling;
+- resilient technology for African contexts.
 
-Author
+## Security
 
-Wahab Opeyemi Badmus
-Researcher, software builder, and AI governance enthusiast working at the intersection of technology, research, education, and African development.
+Never commit local databases, tokens, private keys, `.env` files, email credentials, API secrets, or generated server secrets.
 
-License
+If a secret is ever committed publicly, removing the file from the latest branch is **not enough**. Rotate/revoke the exposed credential because it may remain in Git history, caches, forks, or clones.
 
-This project is intended to be open-source. A formal license file should be added before major external contribution begins.
+See `.gitignore` before committing local work.
 
-Recommended license: MIT License.
+## Current status
 
-Closing Note
+AfriSync is under active development. The core synchronization concepts have been implemented and tested through local-first storage, remote FastAPI synchronization, multi-device simulation, project/note/attachment synchronization, team permissions, activity history, authentication, and monitoring interfaces. The current milestone is the mobile developer experience and Android packaging.
 
-AfriSync is still evolving, but the mission is clear:
+For setup details, see [`SETUP_AND_RUN.md`](SETUP_AND_RUN.md). For historical mobile planning, see [`MOBILE_APP_CONVERSION_PLAN.md`](MOBILE_APP_CONVERSION_PLAN.md).
 
-Build tools that understand African realities and give developers the power to keep building — online, offline, and across borders.
+## Contributing
+
+Issues, bug reports, architecture discussions, documentation improvements, mobile UX work, and synchronization experiments are welcome. Before submitting sensitive logs or databases, remove credentials, tokens, email addresses, and private user data.
+
+---
+
+<div align="center">
+
+**AfriSync — resilient synchronization for developers working in the real world.**
+
+</div>

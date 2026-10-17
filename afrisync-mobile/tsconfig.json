@@ -1,0 +1,13 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true
+  },
+  "exclude": [
+    "backup_*",
+    "**/backup_*",
+    "src/storage/db.ts",
+    "src/services/syncService.ts",
+    "src/screens/app/CreateProjectScreen.tsx"
+  ]
+}

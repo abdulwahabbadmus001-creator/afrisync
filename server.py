@@ -3030,3 +3030,8 @@ def health():
         "generated_at": current_timestamp(),
         "stats": stats,
     }
+
+# AFRISYNC_DEVELOPER_PLATFORM_V1
+from developer_api import register_developer_api
+register_developer_api(app, get_connection, current_timestamp, require_sync_auth)
+

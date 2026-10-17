@@ -1,4 +1,4 @@
-﻿# =========================
+# =========================
 # AfriSync Git Ignore Rules
 # =========================
 
@@ -29,18 +29,34 @@ backups/
 
 # Secret/config files - DO NOT PUSH
 .env
-*.env
-sync_secret.key
+.env.*
+!.env.example
 *.key
+sync_secret.key
+.afrisync_server_secret
+.afrisync_*_secret
+*secret*.key
 
 afrisync_email_config.ps1
 afrisync_google_config.ps1
 afrisync_postgres_config.ps1
 afrisync_production_config.ps1
 
+# Expo / React Native local state
+afrisync-mobile/node_modules/
+afrisync-mobile/.expo/
+afrisync-mobile/.env
+afrisync-mobile/.env.*
+!afrisync-mobile/.env.example
+afrisync-mobile/dist/
+afrisync-mobile/build/
+
 # Logs
 *.log
 logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Build outputs
 dist/
