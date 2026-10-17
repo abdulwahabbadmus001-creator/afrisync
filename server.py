@@ -1432,14 +1432,28 @@ def register_user(user: RegisterRequest):
 
     connection = get_connection()
     cursor = connection.cursor()
-    cursor.execute(
-        """
-        SELECT user_id FROM users
-        WHERE lower(username) = lower(?)
-           OR (? IS NOT NULL AND lower(COALESCE(email, '')) = lower(?))
-        """,
-        (user.username, email, email),
-    )
+    # PostgreSQL cannot reliably infer the type of a parameter used only in
+    # `? IS NOT NULL` after our database adapter converts placeholders to `$n`.
+    # Build the duplicate-check query according to whether an email was supplied
+    # so every bound parameter is used in a typed comparison.
+    if email:
+        cursor.execute(
+            """
+            SELECT user_id FROM users
+            WHERE lower(username) = lower(?)
+               OR lower(COALESCE(email, '')) = lower(?)
+            """,
+            (user.username, email),
+        )
+    else:
+        cursor.execute(
+            """
+            SELECT user_id FROM users
+            WHERE lower(username) = lower(?)
+            """,
+            (user.username,),
+        )
+
     if cursor.fetchone():
         connection.close()
         raise HTTPException(status_code=409, detail="Username or email already exists.")
