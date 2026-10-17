@@ -74,3 +74,9 @@ Thumbs.db
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# Local backup files
+*backup*
+*.backup
+*.bak
+*.before_*
