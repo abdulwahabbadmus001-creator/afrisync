@@ -24,6 +24,11 @@
       "image": "./assets/afrisync_logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "59a90d9b-c019-434f-8851-a9affa2e618e"
+      }
     }
   }
 }
